@@ -15,7 +15,7 @@ class CreateRegistrationsTable extends Migration
     {
         Schema::create('registrations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('aluno_id');
+            $table->integer('user_id');
             $table->integer('curso_id');
             $table->boolean('authorized');
             $table->timestamps();

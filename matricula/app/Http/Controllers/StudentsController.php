@@ -59,15 +59,15 @@ class StudentsController extends Controller
     }
 
     public function update(Request $request, $id) {
-        $s = Students::findOrFail($id);
+        $s = new Students;
         $s->Nome_Aluno = $request->input('Nome_Aluno');
         $s->CPF = $request->input('CPF');
-        $s->CPF = $request->input('RG');
-        $s->CPF = $request->input('Estado');
-        $s->CPF = $request->input('Cidade');
-        $s->CPF = $request->input('Rua');
-        $s->CPF = $request->input('Numero');
-        $s->CPF = $request->input('Celular');
+        $s->RG = $request->input('RG');
+        $s->Estado = $request->input('Estado');
+        $s->Cidade = $request->input('Cidade');
+        $s->Rua = $request->input('Rua');
+        $s->Numero = $request->input('Numero');
+        $s->Celular = $request->input('Celular');
         
         if ($p->save()) {
             \Session::flash('status', 'Estado atualizado com sucesso.');
