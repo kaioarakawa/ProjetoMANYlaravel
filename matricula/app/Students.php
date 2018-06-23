@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Students extends Model
 {
-    protected $fillable = ['',''];
-    public function curses(){
-        return $this->hasMany(Curses::class);
+    protected $fillable = ['Nome_Aluno','CPF','RG','Estado','Cidade','Rua','Numero','Celular'];
+    public function courses(){
+        return $this->belongToMany(Courses::class, 'registrations', 'aluno_id', 'curso_id')
+        ->withPivot('authorized')
+        ->as('registrations')
+        ->withTimestamps();
     }
 }
