@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\User;
 use App\Students;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 
-class StudentsController extends Controller
+class UsersController extends Controller
 {
     public function __construct()
     {
@@ -24,6 +26,13 @@ class StudentsController extends Controller
     public function create() 
     {
         return view('students/new');
+    }
+
+    public function all($name)
+    {
+        $users = User::where('name', 'like', "$name%")->get();
+
+        return new JsonResponse($users);
     }
 
     public function store(Request $request) 

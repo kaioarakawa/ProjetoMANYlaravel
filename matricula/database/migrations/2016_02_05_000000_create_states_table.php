@@ -1,11 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateCoursesTable extends Migration
+class CreateStatesTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -13,13 +13,17 @@ class CreateCoursesTable extends Migration
      */
     public function up()
     {
-        Schema::create('courses', function (Blueprint $table) {
+
+        Schema::create('states', function (Blueprint $table) {
+
             $table->increments('id');
-            $table->string('nameCourse',100);
-            $table->string('ementa',100);
-            $table->integer('qtnStudents');
+            $table->string('name', 64)->unique();
+            $table->string('abbr', 2)->unique();
             $table->timestamps();
+            $table->softDeletes();
+
         });
+
     }
 
     /**
@@ -29,6 +33,9 @@ class CreateCoursesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('courses');
+
+        Schema::drop('states');
+
     }
+
 }

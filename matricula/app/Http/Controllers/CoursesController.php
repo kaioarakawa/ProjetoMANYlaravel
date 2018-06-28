@@ -29,15 +29,15 @@ class CoursesController extends Controller
     public function store(Request $request) 
     {
         $c = new Courses;
-        $c->Nome_Aluno = $request->input('Nome_Curso');
-        $c->Ementa = $request->input('Ementa');
-        $c->Qtn_Aluno = $request->input('Qtn_Aluno');
+        $c->nameCourse = $request->input('nameCourse');
+        $c->Ementa = $request->input('ementa');
+        $c->qtnStudents = $request->input('qtnStudents');
 
         if ($c->save()) {
-            \Session::flash('status', 'Estado criado com sucesso.');
+            \Session::flash('status', 'Curso criado com sucesso.');
             return redirect('/courses');
         } else {
-            \Session::flash('status', 'Ocorreu um erro ao criar o estado.');
+            \Session::flash('status', 'Ocorreu um erro ao criar o Curso.');
             return view('courses.new');
         }
     }
@@ -56,24 +56,25 @@ class CoursesController extends Controller
 
     public function update(Request $request, $id) {
         $c = Courses::findOrFail($id);
-        $c->Nome_Aluno = $request->input('Nome_Curso');
-        $c->Ementa = $request->input('Ementa');
-        $c->Qtn_Aluno = $request->input('Qtn_Aluno');
+        $c->nameCourse = $request->input('nameCourse');
+        $c->Ementa = $request->input('ementa');
+        $c->qtnStudents = $request->input('qtnStudents');
+
         
-        if ($p->save()) {
-            \Session::flash('status', 'Estado atualizado com sucesso.');
+        if ($c->save()) {
+            \Session::flash('status', 'Curso atualizado com sucesso.');
             return redirect('/courses');
         } else {
-            \Session::flash('status', 'Ocorreu um erro ao atualizar o Estado.');
+            \Session::flash('status', 'Ocorreu um erro ao atualizar o Curso.');
             return view('courses.edit', ['courses' => $c]);
         }
     }
 
     public function destroy($id) {
-        $s = Courses::findOrFail($id);
-        $s->delete();
+        $c = Courses::findOrFail($id);
+        $c->delete();
 
-        \Session::flash('status', 'Estado excluído com sucesso.');
+        \Session::flash('status', 'Curso excluído com sucesso.');
         return redirect('/courses');
     }
 }
