@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Students;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -18,14 +17,14 @@ class UsersController extends Controller
 
     public function index()
     {
-        $students = Students::all();
+        $users = User::all();
 
-        return view('students/index', ['students' => $students]);
+        return view('users/index', ['users' => $users]);
     }
 
     public function create() 
     {
-        return view('students/new');
+        return view('users/new');
     }
 
     public function all($name)
@@ -37,61 +36,77 @@ class UsersController extends Controller
 
     public function store(Request $request) 
     {
-        $s = new Students;
-        $s->Nome_Aluno = $request->input('Nome_Aluno');
-        $s->CPF = $request->input('CPF');
-        $s->RG = $request->input('RG');
-        $s->Estado = $request->input('Estado');
-        $s->Cidade = $request->input('Cidade');
-        $s->Rua = $request->input('Rua');
-        $s->Numero = $request->input('Numero');
-        $s->Celular = $request->input('Celular');
-        if ($s->save()) {
-            \Session::flash('status', 'Estado criado com sucesso.');
-            return redirect('/students');
+        $u = new User;
+        $u->name = $request->input('name');
+        $u->email = $request->input('email');
+        $u->CPF = $request->input('CPF');
+        $u->RG = $request->input('RG');
+        $u->state = $request->input('state');
+        $u->city = $request->input('city');
+        $u->street = $request->input('street');
+        $u->numberHouse = $request->input('numberHouse');
+        $u->numberTel = $request->input('numberTel');
+        if ($u->save()) {
+            \Session::flash('status', 'Aluno cadastrado com sucesso.');
+            return redirect('/users');
         } else {
-            \Session::flash('status', 'Ocorreu um erro ao criar o estado.');
-            return view('students.new');
+            \Session::flash('status', 'Ocorreu um erro ao cadastrado o Aluno.');
+            return view('users.new');
         }
     }
 
     public function edit($id) {
-        $students = Students::findOrFail($id);
+        $users = User::findOrFail($id);
 
-        return view('students.edit', ['students' => $students]);
+        return view('users.edit', ['users' => $users]);
     }
 
     public function delete($id) {
-        $students = Students::findOrFail($id);
+        $users = User::findOrFail($id);
 
-        return view('students.delete', ['students' => $students]); 
+        return view('users.delete', ['users' => $users]); 
+    }
+
+    public function updateAdmin(Request $request, $id) {
+        $u = User::findOrFail($id);
+        $u->isAdmin = $request->input('isAdmin');
+
+        if ($u->save()) {
+            \Session::flash('status', 'Usuario atualizado com sucesso.');
+            return redirect('/users');
+        } else {
+            \Session::flash('status', 'Ocorreu um erro ao atualizar o Usuario.');
+            return view('users.edit', ['users' => $u]);
+        }
     }
 
     public function update(Request $request, $id) {
-        $s = new Students;
-        $s->Nome_Aluno = $request->input('Nome_Aluno');
-        $s->CPF = $request->input('CPF');
-        $s->RG = $request->input('RG');
-        $s->Estado = $request->input('Estado');
-        $s->Cidade = $request->input('Cidade');
-        $s->Rua = $request->input('Rua');
-        $s->Numero = $request->input('Numero');
-        $s->Celular = $request->input('Celular');
+        $u = User::findOrFail($id);
+        $u->name = $request->input('name');
+        $u->email = $request->input('email');
+        $u->CPF = $request->input('CPF');
+        $u->RG = $request->input('RG');
+        $u->state = $request->input('state');
+        $u->city = $request->input('city');
+        $u->street = $request->input('street');
+        $u->numberHouse = $request->input('numberHouse');
+        $u->numberTel = $request->input('numberTel');
         
-        if ($p->save()) {
-            \Session::flash('status', 'Estado atualizado com sucesso.');
-            return redirect('/students');
+
+        if ($u->save()) {
+            \Session::flash('status', 'Usuario atualizado com sucesso.');
+            return redirect('/users');
         } else {
-            \Session::flash('status', 'Ocorreu um erro ao atualizar o Estado.');
-            return view('students.edit', ['students' => $s]);
+            \Session::flash('status', 'Ocorreu um erro ao atualizar o Usuario.');
+            return view('users.edit', ['users' => $u]);
         }
     }
 
     public function destroy($id) {
-        $s = Students::findOrFail($id);
-        $s->delete();
+        $u = User::findOrFail($id);
+        $u->delete();
 
-        \Session::flash('status', 'Estado excluído com sucesso.');
-        return redirect('/students');
+        \Session::flash('status', 'Usuario excluído com sucesso.');
+        return redirect('/users');
     }
 }

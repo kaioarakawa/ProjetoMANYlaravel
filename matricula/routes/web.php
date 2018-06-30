@@ -23,3 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('courses', 'CoursesController');
 Route::get('/courses/{id}/delete', 'CoursesController@delete');
 Route::get('/users/all/{name}', 'UsersController@all');
+
+Route::resource('users', 'UsersController');
+Route::get('/users/{id}/delete', 'UsersController@delete');
+Route::get('/users/{id}/updateAdmin', 'UsersController@updateAdmin');
