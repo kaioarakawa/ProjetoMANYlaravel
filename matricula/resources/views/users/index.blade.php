@@ -10,9 +10,13 @@
                 </div>
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    @elseif (session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
                     @endif
 
                     <table class="table">
@@ -23,15 +27,16 @@
                             <th>Ações</th>
                         </tr>
                         @foreach($users as $u)
-                            <tr>
-                                <td>{{ $u->id }}</td>
-                                <td>{{ $u->name }}</td>
-                                <td>{{ $u->email }}</td>
-                                <td>
-                                    <a href="/users/{{ $u->id }}/edit" class="btn btn-warning">Editar</a>
-                                    <a href="/users/{{ $u->id }}/delete" class="btn btn-danger">Excluir</a>
-                                </td>
-                            </tr>
+                            @if($u->id!=1)
+                                <tr>
+                                    <td>{{ $u->id }}</td>
+                                    <td>{{ $u->name }}</td>
+                                    <td>{{ $u->email }}</td>
+                                    <td>
+                                        <a href="/users/{{ $u->id }}/perfil" class="btn btn-success">Perfil</a>
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
                     </table>
                 </div>

@@ -54,21 +54,42 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/home"
+                                        onclick="event.preventDefault();
+                                                  document.getElementById('home').submit();">
+                                        {{ __('Home') }}
+                                    </a>
                                     <a class="dropdown-item" href="/courses"
                                         onclick="event.preventDefault();
                                                   document.getElementById('edit-form').submit();">
                                         {{ __('Cursos') }}
                                     </a>
-
+                                    @can('admin-only', auth()->user())
+                                    <a class="dropdown-item" href="/users"
+                                        onclick="event.preventDefault();
+                                                  document.getElementById('create-form').submit();">
+                                        {{ __('Usuarios') }}
+                                    </a>
+                                    @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                      </a>
 
+                                     <form id="home" action="/home"  style="display: none;">
+                                        @csrf
+                                    </form>
+
                                      <form id="edit-form" action="/courses"  style="display: none;">
                                         @csrf
                                     </form>
+
+                                    @can('admin-only', auth()->user())
+                                    <form id="create-form" action="/users"  style="display: none;">
+                                        @csrf
+                                    </form>
+                                    @endcan
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf

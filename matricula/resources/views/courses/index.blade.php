@@ -7,13 +7,19 @@
             <div class="card">
                 <div class="card-header">
                     Todos os Cursos
+                    @can('admin-only', auth()->user())
                     <a href="/courses/create" class="float-right btn btn-success">Novo Curso</a>
+                    @endcan
                 </div>
                 <div class="card-body">
                     @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    @elseif (session('error'))
+                    <div class="alert alert-danger" role="alert">
+                        {{ session('error') }}
+                    </div>
                     @endif
 
                     <table class="table">
@@ -30,10 +36,17 @@
                                 <td>{{ $c->nameCourse }}</td>
                                 <td>{{ $c->ementa }}</td>
                                 <td>{{ $c->qtnStudents }}</td>
-                                <td>
-                                    <a href="/courses/{{ $c->id }}/edit" class="btn btn-warning">Editar</a>
-                                    <a href="/courses/{{ $c->id }}/delete" class="btn btn-danger">Excluir</a>
-                                </td>
+                                @can('admin-only', auth()->user())
+                                    <td>
+                                        <a href="/courses/{{ $c->id }}/edit" class="btn btn-warning">Editar</a>
+                                        <a href="/courses/{{ $c->id }}/delete" class="btn btn-danger">Excluir</a>
+                                    </td>
+                                @endcan
+                                @cannot('admin-only', auth()->user())
+                                    <td>
+                                        <a href="/courses/{{ $c->id }}/edit" class="btn btn-warning">Inscrever-se</a>
+                                    </td>
+                                @endcan
                             </tr>
                         @endforeach
                     </table>

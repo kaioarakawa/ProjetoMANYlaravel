@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -15,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        
     ];
 
     /**
@@ -26,9 +28,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('view-post', 'PostPolicy@update');
-        if (Gate::forUser(Auth::isAdmin())->denies('view-post', $post)) {
-            return redirect('/home');
-        }
+        Gate::define('admin-only', function ($user) {
+            if($user->isAdmin == 1){
+                return true;    
+            }else {
+                return false;
+            }
+        });
+        
     }
 }

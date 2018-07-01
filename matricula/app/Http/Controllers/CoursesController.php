@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Courses;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CoursesController extends Controller
 {
@@ -17,13 +18,21 @@ class CoursesController extends Controller
     public function index()
     {
         $courses = Courses::all();
-
-        return view('courses/index', ['courses' => $courses]);
+       
+            return view('courses/index', ['courses' => $courses]);
+       
     }
 
     public function create() 
     {
-        return view('courses/new');
+        
+        if (Gate::allows('admin-only', auth()->user())) {
+            
+            return view('courses/new');
+        }else {
+            \Session::flash('error', 'Voce não tem permissão para entrar nessa pagina.');
+            return view('home');
+        }
     }
 
     public function store(Request $request) 
@@ -45,13 +54,28 @@ class CoursesController extends Controller
     public function edit($id) {
         $courses = Courses::findOrFail($id);
 
-        return view('courses.edit', ['courses' => $courses]);
+
+        if (Gate::allows('admin-only', auth()->user())) {
+            
+            return view('courses.edit', ['courses' => $courses]); 
+        }else {
+            \Session::flash('error', 'Voce não tem permissão para entrar nessa pagina.');
+            return view('home');
+        }
+        
+        
     }
 
     public function delete($id) {
         $courses = Courses::findOrFail($id);
-
-        return view('courses.delete', ['courses' => $courses]); 
+        if (Gate::allows('admin-only', auth()->user())) {
+            
+            return view('courses.delete', ['courses' => $courses]); 
+        }else {
+            \Session::flash('error', 'Voce não tem permissão para entrar nessa pagina.');
+            return view('home');
+        }
+        
     }
 
     public function update(Request $request, $id) {

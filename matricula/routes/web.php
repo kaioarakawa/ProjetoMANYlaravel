@@ -27,3 +27,4 @@ Route::get('/users/all/{name}', 'UsersController@all');
 Route::resource('users', 'UsersController');
 Route::get('/users/{id}/delete', 'UsersController@delete');
 Route::get('/users/{id}/updateAdmin', 'UsersController@updateAdmin');
+Route::get('/users/{id}/perfil', 'UsersController@perfil');
