@@ -23,7 +23,7 @@ class UsersController extends Controller
 
         if (Gate::allows('admin-only', auth()->user())) {
             
-            return view('users/index', ['users' => $users]);
+            return view('users/admin/index', ['users' => $users]);
         }else {
             \Session::flash('error', 'Voce não tem permissão para entrar nessa pagina.');
             return view('home');
@@ -83,7 +83,7 @@ class UsersController extends Controller
             return redirect('/users');
         } else {
             \Session::flash('error', 'Ocorreu um erro ao cadastrado o Aluno.');
-            return view('users.new');
+            return view('users.admin.new');
         }
     }
 
@@ -92,7 +92,7 @@ class UsersController extends Controller
 
         if (Gate::allows('admin-only', auth()->user())) {
             
-            return view('users.edit', ['users' => $users]);
+            return view('users.admin.edit', ['users' => $users]);
         }else {
             \Session::flash('error', 'Voce não tem permissão para entrar nessa pagina.');
             return view('home');
@@ -103,14 +103,19 @@ class UsersController extends Controller
     public function delete($id) {
         $users = User::findOrFail($id);
 
-        if (Gate::allows('admin-only', auth()->user())) {
-            
-            return view('users.delete', ['users' => $users]);
-        }else {
-            \Session::flash('error', 'Voce não tem permissão para entrar nessa pagina.');
-            return view('home');
+        if($users->id==Auth::id()){
+            \Session::flash('error', 'Voce não pode se excluir, entre em contato com a TI');
+            return redirect('/home');
+        }else{
+
+            if (Gate::allows('admin-only', auth()->user())) {
+                
+                return view('users.admin.delete', ['users' => $users]);
+            }else {
+                \Session::flash('error', 'Voce não tem permissão para entrar nessa pagina.');
+                return view('home');
+            }
         }
-        
     }
 
     public function updateAdmin(Request $request, $id) {
@@ -149,13 +154,17 @@ class UsersController extends Controller
         $u->numberHouse = $request->input('numberHouse');
         $u->numberTel = $request->input('numberTel');
         
-
         if ($u->save()) {
             \Session::flash('status', 'Usuario atualizado com sucesso.');
-            return redirect('/users');
+            if($u->isAdmin==1){
+                return redirect('/users');
+            }else{
+                return view('home', ['users' => $u]);
+            }
+
         } else {
             \Session::flash('error', 'Ocorreu um erro ao atualizar o Usuario.');
-            return view('users.edit', ['users' => $u]);
+            return view('users.admin.edit', ['users' => $u]);
         }
     }
 

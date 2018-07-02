@@ -21,6 +21,7 @@
                         {{ session('error') }}
                     </div>
                     @endif
+                    @can('admin-only', auth()->user())
 
                     <table class="table">
                         <tr>    
@@ -30,26 +31,22 @@
                             <th>Quantidade de Alunos</th>
                             <th>Ações</th>
                         </tr>
+
                         @foreach($courses as $c)
-                            <tr>
-                                <td>{{ $c->id }}</td>
-                                <td>{{ $c->nameCourse }}</td>
-                                <td>{{ $c->ementa }}</td>
-                                <td>{{ $c->qtnStudents }}</td>
-                                @can('admin-only', auth()->user())
-                                    <td>
-                                        <a href="/courses/{{ $c->id }}/edit" class="btn btn-warning">Editar</a>
-                                        <a href="/courses/{{ $c->id }}/delete" class="btn btn-danger">Excluir</a>
-                                    </td>
-                                @endcan
-                                @cannot('admin-only', auth()->user())
-                                    <td>
-                                        <a href="/courses/{{ $c->id }}/edit" class="btn btn-warning">Inscrever-se</a>
-                                    </td>
-                                @endcan
-                            </tr>
+                                        <tr>
+                                            <td>{{ $c->id }}</td>
+                                            <td>{{ $c->nameCourse }}</td>
+                                            <td>{{ $c->ementa }}</td>
+                                            <td>{{ $c->qtnStudents }}</td>
+                                            <td>
+                                                <a href="/courses/{{ $c->id }}/edit" class="btn btn-warning">Editar</a>
+                                                <a href="/courses/{{ $c->id }}/delete" class="btn btn-danger">Excluir</a>
+                                            </td>
+                                        </tr>
                         @endforeach
                     </table>
+
+                    @endcan
                 </div>
             </div>
         </div>

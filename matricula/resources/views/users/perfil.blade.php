@@ -19,6 +19,7 @@
                         {{ session('error') }}
                     </div>
                     @endif
+                    <img src="/uploads/avatars/{{ $users->avatar }}" style="width:150px; height:150px; float:left; border-radius:50%; margin-right:25px;">
 
                     <table class="table">
                         <tr>    
@@ -48,12 +49,12 @@
                     </table>
                     <table class="table">
                         <tr>
-                            <td><a href="/users/{{ $users->id }}/edit" class="btn btn-warning">Editar</a></td>
-                            <td><a href="/users/{{ $users->id }}/delete" class="btn btn-danger">Excluir</a></td>
+                            <td><a href="/users/admin/{{ $users->id }}/edit" class="btn btn-warning">Editar</a></td>
+                            <td><a href="/users/admin/{{ $users->id }}/delete" class="btn btn-danger">Excluir</a></td>
                             @if($users->isAdmin ==0)
-                            <td><a href="/users/{{ $users->id }}/updateAdmin" class="btn btn-success">Tornar Admin</a></td>
+                            <td><a href="/users/admin/{{ $users->id }}/updateAdmin" class="btn btn-success">Tornar Admin</a></td>
                             @else
-                            <td><a href="/users/{{ $users->id }}/updateAdmin" class="btn btn-danger">Tornar User</a></td>
+                            <td><a href="/users/admin/{{ $users->id }}/updateAdmin" class="btn btn-danger">Tornar User</a></td>
                             @endif
                         </tr>
                     </table>

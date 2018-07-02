@@ -49,26 +49,43 @@
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
                             <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                <a href="#"  id="navbarDropdown" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="position:relative; padding-left:50px;" v-pre>
+                                        <img src="/uploads/avatars/{{ Auth::user()->avatar }}" style="width:32px; height:32px; position:absolute; top:0px; left:10px; border-radius:50%;" >
+                                        {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-
+                                
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/home"
                                         onclick="event.preventDefault();
                                                   document.getElementById('home').submit();">
                                         {{ __('Home') }}
                                     </a>
-                                    <a class="dropdown-item" href="/courses"
+                                    @can('admin-only', auth()->user())
+                                        <a class="dropdown-item" href="/courses"
                                         onclick="event.preventDefault();
-                                                  document.getElementById('edit-form').submit();">
+                                                document.getElementById('edit-admin-form').submit();">
                                         {{ __('Cursos') }}
-                                    </a>
+                                        </a>
+                                    @endcan
+                                    @cannot('admin-only', auth()->user())
+                                        <a class="dropdown-item" href="/courses/registration/list"
+                                        onclick="event.preventDefault();
+                                                document.getElementById('edit-form').submit();">
+                                        {{ __('Cursos') }}
+                                        </a>
+                                    @endcan
                                     @can('admin-only', auth()->user())
                                     <a class="dropdown-item" href="/users"
                                         onclick="event.preventDefault();
                                                   document.getElementById('create-form').submit();">
                                         {{ __('Usuarios') }}
+                                    </a>
+                                    @endcan
+                                    @can('admin-only', auth()->user())
+                                    <a class="dropdown-item" href="/courses/registration/allcourses"
+                                        onclick="event.preventDefault();
+                                                  document.getElementById('authorize-form').submit();">
+                                        {{ __('Autorizar Usuarios') }}
                                     </a>
                                     @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"
@@ -81,12 +98,27 @@
                                         @csrf
                                     </form>
 
-                                     <form id="edit-form" action="/courses"  style="display: none;">
+                                    @can('admin-only', auth()->user())
+                                    <form id="edit-admin-form" action="/courses"  style="display: none;">
                                         @csrf
                                     </form>
+                                    @endcan
+
+                                    @cannot('admin-only', auth()->user())
+                                    <form id="edit-form" action="/courses/user/list"  style="display: none;">
+                                        @csrf
+                                    </form>
+                                    @endcan
+
 
                                     @can('admin-only', auth()->user())
                                     <form id="create-form" action="/users"  style="display: none;">
+                                        @csrf
+                                    </form>
+                                    @endcan
+
+                                    @can('admin-only', auth()->user())
+                                    <form id="authorize-form" action="courses/user/allcourses"  style="display: none;">
                                         @csrf
                                     </form>
                                     @endcan
