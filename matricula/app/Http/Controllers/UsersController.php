@@ -69,7 +69,7 @@ class UsersController extends Controller
 
     public function store(Request $request) 
     {
-        $this=>validate($request,$this->courses->rules);
+        $this->validate($request,$this->courses->rules);
 
         $u = new User;
         $u->name = $request->input('name');

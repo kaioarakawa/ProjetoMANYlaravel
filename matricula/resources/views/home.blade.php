@@ -57,7 +57,7 @@
                         <table class="table">
                             <tr>
                                 <td><a href="/home/upperfl" class="btn btn-warning">Editar</a></td>
-                                <td><a href="/users/{{ $users->id }}/delete" class="btn btn-danger">Excluir</a></td>
+                                <td><a href="/users/admin/{{ $users->id }}/delete" class="btn btn-danger">Excluir</a></td>
                             </tr>
                         </table>
                     </div>

@@ -106,7 +106,7 @@
                                     <a class="dropdown-item" href="http://localhost:8000/courses/registration/allcourses?_token=PuIy0JPSLdMKoEZDLfEmoZ9MhgVH6oDfYJhPUeVj"
                                         onclick="event.preventDefault();
                                                   document.getElementById('authorize-form').submit();">
-                                        {{ __('Autorizar Usuarios') }}
+                                        {{ __('Autorizar Matriculas') }}
                                     </a>
                                     @endcan
                                     <a class="dropdown-item" href="{{ route('logout') }}"

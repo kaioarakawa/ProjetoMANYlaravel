@@ -35,7 +35,7 @@
                                         <td>{{ $course->nameCourse }}</td>
                                         <td>{{ $user->email }}</td> 
                                         <td>
-                                            <a href="{{ $course->id }}/{{ $user->id }}/authtorizeStudentdeleteStudents" class="btn btn-success">Authorize</a>
+                                            <a href="{{ $course->id }}/{{ $user->id }}/authtorizeStudent" class="btn btn-success">Authorize</a>
                                             <a href="{{ $course->id }}/{{ $user->id }}/deleteStudents" class="btn btn-success">Delete</a>
                                         </td>
                                         

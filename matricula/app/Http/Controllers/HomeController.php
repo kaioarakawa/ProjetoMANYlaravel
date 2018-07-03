@@ -47,7 +47,7 @@ class HomeController extends Controller
     public function upperfl(Request $request) {
         $users = User::findOrFail(Auth::id());
 
-        return view('users.edit', ['users' => $users]);
+        return view('users.admin.edit', ['users' => $users]);
         
     }
 
