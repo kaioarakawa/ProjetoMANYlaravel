@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    Todos os Cursos
+                    Autorização de Alunos
                 </div>
                 <div class="card-body">
                     @if (session('status'))
@@ -18,28 +18,30 @@
                         {{ session('error') }}
                     </div>
                     @endif
+
                     <table class="table">
                         <tr>    
-                            <th>ID</th>
                             <th>Curso</th>
-                            <th>Ementa</th>
                             <th>Quantidade de Alunos</th>
+                            <th>Ementa</th>
+                            <th>Estado atual da matricula</th>
                             <th>Ações</th>
                         </tr>
-                        @foreach($courses1 as $c1) 
-                                        <tr>
-                                            <td>{{ $c1->id }}</td>
-                                            <td>{{ $c1->nameCourse }}</td>
-                                            <td>{{ $c1->ementa }}</td>
-                                            <td>{{ $c1->qtnStudents }}</td>
-                                            <td>
-                                                <a href="{{$c1->id}}/userre" class="btn btn-warning">Inscrever-se</a>
-                                            </td>
-                                        </tr>
-                        @endforeach 
-
+                        <tr>
+                        @foreach($courses as $course)                     
+                                    <tr>    
+                                        <td>{{ $course->nameCourse }}</td>
+                                        <td>{{ $course->qtnStudents }}</td> 
+                                        <td>{{ $course->ementa }}</td> 
+                                        @if ($course->pivot->authorized == 1)
+                                            <td> Autorizado </td>
+                                        @else 
+                                            <td> Em espera </td>
+                                        @endif
+                                        <td><a href="{{$course->id}}/userde" class="btn btn-success">Deletar Matricula</a></td>  
+                                    </tr>
+                            @endforeach
                     </table>
-                    {{ $courses1->links() }}
                 </div>
             </div>
         </div>

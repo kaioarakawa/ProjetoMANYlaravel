@@ -16,12 +16,12 @@ class CoursesController extends Controller
         
     }
 
-
     public function index()
     {
         $courses = Courses::all();
-       
+        $courses = Courses::paginate(2);
             return view('courses/index', ['courses' => $courses]);
+
        
     }
 

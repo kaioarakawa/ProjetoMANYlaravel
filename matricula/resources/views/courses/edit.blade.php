@@ -27,19 +27,19 @@
                             <div class="form-group row">
                                 {{ Form::label('nameCourse', 'Nome do Curso:', ['class' => 'col-sm-2 col-form-label col-form-label-sm']) }}
                                 <div class="col-sm-10">
-                                    {{ Form::text('nameCourse', $courses->nameCourse, ['class' => 'form-control form-control-sm'] ) }}
+                                    {{ Form::text('nameCourse', $courses->nameCourse, ['class' => 'form-control form-control-sm', 'required'] ) }}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 {{ Form::label('ementa', 'Ementa:', ['class' => 'col-sm-2 col-form-label col-form-label-sm']) }}
                                 <div class="col-sm-10">
-                                    {{ Form::text('ementa', $courses->ementa, ['class' => 'form-control form-control-sm'] ) }}
+                                    {{ Form::text('ementa', $courses->ementa, ['class' => 'form-control form-control-sm', 'required'] ) }}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 {{ Form::label('qtnStudents', 'Quantidade Maxima de Alunos:', ['class' => 'col-sm-2 col-form-label col-form-label-sm']) }}
                                 <div class="col-sm-10">
-                                    {{ Form::text('qtnStudents', $courses->qtnStudents, ['class' => 'form-control form-control-sm'] ) }}
+                                    {{ Form::text('qtnStudents', $courses->qtnStudents, ['class' => 'form-control form-control-sm', 'required'] ) }}
                                 </div>
                             </div>
                             

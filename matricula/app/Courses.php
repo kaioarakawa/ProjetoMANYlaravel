@@ -11,4 +11,10 @@ class Courses extends Model
     public function user(){
         return $this->belongsToMany(User::class, 'registrations','user_id','courses_id')->withPivot('authorized','id')->withTimestamps();
     }
+
+    public $rules= [
+        'nameCourse' => 'required|string|max:255',
+        'Ementa' => 'required|string|max:255',
+        'qtnStudents' => 'required|numeric|min:6',
+    ];
 }

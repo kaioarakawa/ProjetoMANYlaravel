@@ -47,6 +47,7 @@
                     </table>
 
                     @endcan
+                    {{ $courses->links() }}
                 </div>
             </div>
         </div>

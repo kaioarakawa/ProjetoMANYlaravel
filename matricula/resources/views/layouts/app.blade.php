@@ -29,7 +29,7 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ 'IFC' }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -60,12 +60,33 @@
                                                   document.getElementById('home').submit();">
                                         {{ __('Home') }}
                                     </a>
+                                    @cannot('admin-only', auth()->user())
+                                        <a class="dropdown-item" href="http://localhost:8000/courses/user/mycourses?_token=3M7QYMdRrFHmuuju5hzWQLuiEDjcBnVJSWzsg2gr"
+                                        onclick="event.preventDefault();
+                                                document.getElementById('my-form').submit();">
+                                        {{ __('Meus Cursos') }}
+                                        </a>
+                                    @endcan
                                     @can('admin-only', auth()->user())
                                         <a class="dropdown-item" href="/courses"
                                         onclick="event.preventDefault();
                                                 document.getElementById('edit-admin-form').submit();">
                                         {{ __('Cursos') }}
                                         </a>
+                                    @endcan
+                                    @can('admin-only', auth()->user())
+                                    <a class="dropdown-item" href="/courses/registration/adminregisterlist"
+                                    onclick="event.preventDefault();
+                                            document.getElementById('create-admin-form').submit();">
+                                    {{ __('Fazer Matricula') }}
+                                    </a>
+                                    @endcan
+                                    @can('admin-only', auth()->user())
+                                    <a class="dropdown-item" href="/user/admin/deleteregistration"
+                                    onclick="event.preventDefault();
+                                            document.getElementById('delete-admin-form').submit();">
+                                    {{ __('Todas as Matricula') }}
+                                    </a>
                                     @endcan
                                     @cannot('admin-only', auth()->user())
                                         <a class="dropdown-item" href="/courses/registration/list"
@@ -82,7 +103,7 @@
                                     </a>
                                     @endcan
                                     @can('admin-only', auth()->user())
-                                    <a class="dropdown-item" href="/courses/registration/allcourses"
+                                    <a class="dropdown-item" href="http://localhost:8000/courses/registration/allcourses?_token=PuIy0JPSLdMKoEZDLfEmoZ9MhgVH6oDfYJhPUeVj"
                                         onclick="event.preventDefault();
                                                   document.getElementById('authorize-form').submit();">
                                         {{ __('Autorizar Usuarios') }}
@@ -97,30 +118,46 @@
                                      <form id="home" action="/home"  style="display: none;">
                                         @csrf
                                     </form>
-
-                                    @can('admin-only', auth()->user())
-                                    <form id="edit-admin-form" action="/courses"  style="display: none;">
-                                        @csrf
-                                    </form>
-                                    @endcan
-
                                     @cannot('admin-only', auth()->user())
-                                    <form id="edit-form" action="/courses/user/list"  style="display: none;">
-                                        @csrf
-                                    </form>
+                                        <form id="my-form" action="http://localhost:8000/courses/user/mycourses?_token=3M7QYMdRrFHmuuju5hzWQLuiEDjcBnVJSWzsg2gr"  style="display: none;">
+                                            @csrf
+                                        </form>
+                                    @endcan
+
+                                    @can('admin-only', auth()->user())
+                                        <form id="edit-admin-form" action="/courses"  style="display: none;">
+                                            @csrf
+                                        </form>
+                                    @endcan
+
+                                    @can('admin-only', auth()->user())
+                                        <form id="create-admin-form" action="/courses/registration/adminregisterlist"  style="display: none;">
+                                            @csrf
+                                        </form>
+                                    @endcan
+
+                                    @can('admin-only', auth()->user())
+                                        <form id="delete-admin-form" action="/user/admin/deleteregistration"  style="display: none;">
+                                            @csrf
+                                        </form>
+                                    @endcan
+                                    @cannot('admin-only', auth()->user())
+                                        <form id="edit-form" action="/courses/user/list"  style="display: none;">
+                                            @csrf
+                                        </form>
                                     @endcan
 
 
                                     @can('admin-only', auth()->user())
-                                    <form id="create-form" action="/users"  style="display: none;">
-                                        @csrf
-                                    </form>
+                                        <form id="create-form" action="/users"  style="display: none;">
+                                            @csrf
+                                        </form>
                                     @endcan
 
                                     @can('admin-only', auth()->user())
-                                    <form id="authorize-form" action="courses/user/allcourses"  style="display: none;">
-                                        @csrf
-                                    </form>
+                                        <form id="authorize-form" action="http://localhost:8000/courses/registration/allcourses?_token=PuIy0JPSLdMKoEZDLfEmoZ9MhgVH6oDfYJhPUeVj"  style="display: none;">
+                                            @csrf
+                                        </form>
                                     @endcan
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

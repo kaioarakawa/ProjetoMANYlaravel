@@ -8,6 +8,7 @@
                 <div class="card-header">
                     Novo Curso                    
                 </div>
+                
 
                 <div class="card-body">
                     @if (session('status'))
@@ -24,19 +25,19 @@
                         <div class="form-group row">
                             {{ Form::label('nameCourse', 'Nome do Curso:', ['class' => 'col-sm-2 col-form-label col-form-label-sm']) }}
                             <div class="col-sm-10">
-                                {{ Form::text('nameCourse', null, ['class' => 'form-control form-control-sm'] ) }}
+                                {{ Form::text('nameCourse', null, ['class' => 'form-control form-control-sm', 'required'] ) }}
                             </div>
                         </div>
                         <div class="form-group row">
                             {{ Form::label('ementa', 'Ementa:', ['class' => 'col-sm-2 col-form-label col-form-label-sm']) }}
                             <div class="col-sm-10">
-                                {{ Form::text('ementa', null, ['class' => 'form-control form-control-sm'] ) }}
+                                {{ Form::text('ementa', null, ['class' => 'form-control form-control-sm', 'required'] ) }}
                             </div>
                         </div>
                         <div class="form-group row">
                             {{ Form::label('qtnStudents', 'Quantidade Maxima de Alunos:', ['class' => 'col-sm-2 col-form-label col-form-label-sm']) }}
                             <div class="col-sm-10">
-                                {{ Form::text('qtnStudents', null, ['class' => 'form-control form-control-sm'] ) }}
+                                {{ Form::text('qtnStudents', null, ['class' => 'form-control form-control-sm', 'required'] ) }}
                             </div>
                         </div>
                         

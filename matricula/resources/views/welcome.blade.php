@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>IFC</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -14,6 +14,8 @@
         <style>
             html, body {
                 background-color: #fff;
+                background: red; /* For browsers that do not support gradients */
+                background: radial-gradient(white, green); /* Standard syntax (must be last) */
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
@@ -58,6 +60,15 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
+            .links > a#este {
+                color: white;
+                padding: 0 25px;
+                font-size: 12px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
 
             .m-b-md {
                 margin-bottom: 30px;
@@ -71,23 +82,23 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                        <a id="este" href="{{ route('login') }}">Login</a>
+                        <a id="este" href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    IFC
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="https://videira.ifc.edu.br/">Site do Campus</a>
+                    <a href="http://videira.ifc.edu.br/ciencia-da-computacao/">Curso Ciencia Da Computação</a>
+                    <a href="http://videira.ifc.edu.br/institucional/">Sobre o Campus</a>
+                    <a href="https://sig.ifc.edu.br/sigaa/verTelaLogin.do">SIGAA</a>
+                    <a href="https://github.com/kaioarakawa/">GitHub do Criador</a>
                 </div>
             </div>
         </div>

@@ -20,6 +20,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
+        $users = User::paginate(2);
 
         if (Gate::allows('admin-only', auth()->user())) {
             
@@ -68,6 +69,8 @@ class UsersController extends Controller
 
     public function store(Request $request) 
     {
+        $this=>validate($request,$this->courses->rules);
+
         $u = new User;
         $u->name = $request->input('name');
         $u->email = $request->input('email');
